@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.header-class {
+  text-align: center;
+  margin: 0 0 60px 0;
+}
