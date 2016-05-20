@@ -6,8 +6,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/yoda', function(req, res, next) {
-  res.json({yoda: "lyrics"});
+router.get('/yoda', function(req, res, next) {
+  res.json(
+    {
+      yoda: "lyrics"
+    }
+  );
 });
 
 

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $.post( "/yoda", function( data ) {
+    $.get( "/yoda", function( data ) {
     $( ".result" ).html( data );
     console.log(data);
   });
