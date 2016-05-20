@@ -16,36 +16,39 @@ router.get('/yoda', function(req, res, next) {
     return Math.floor(Math.random() * length);
   }
 
-    request('http://www.kanyerest.xyz/api/album/' + albums[0], function(err, res, body){
-      data = JSON.parse(body);
-      var songLyrics = data.result[pickRandom(data.result.length)].lyrics.split('\n');
-      var line = songLyrics[pickRandom(songLyrics.length)];
-      console.log(line);
-      urlInput = line;
-    });
-
-  // will be assigned to rap lyric string
-
   function queryFormat(string) {
     var newString = "sentence=" + string.split(' ').join('+');
     console.log(newString);
     return newString;
   }
 
-  var options = {
-  url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(urlInput),
-  headers: {
-    'Content-Type': 'text/plain',
-    'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
-    }
-  };
+    request('http://www.kanyerest.xyz/api/album/' + albums[0], function(err, res, body){
 
-  function callback(error, response, body) {
-    console.log(body);
-  if (!error && response.statusCode == 200) {
-    res.json(body);
+      //Kanye Data
+      data = JSON.parse(body);
+
+      //Pick random song
+      var songLyrics = data.result[pickRandom(data.result.length)].lyrics.split('\n');
+
+      //Pick random line
+      var line = songLyrics[pickRandom(songLyrics.length)];
+
+      // Options
+      var options = {
+      url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(line),
+      headers: {
+        'Content-Type': 'text/plain',
+        'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
+        }
+      };
+    });
+
+    function callback(error, response, body) {
+      console.log(body);
+    if (!error && response.statusCode == 200) {
+      res.json(body);
+      }
     }
-  }
 
   request(options, callback);
 
