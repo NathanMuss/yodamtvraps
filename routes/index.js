@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-// var http = require('http');
-var request = require('request');
-
-
-
+var request = require('request-promise');
+var Twit = require('twit');
+var tweet = "";
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -25,7 +23,9 @@ router.get('/yoda', function(req, res, next) {
     return newString;
   }
 
-    request('http://www.kanyerest.xyz/api/album/' + albums[0], function(err, res, body){
+    request('http://www.kanyerest.xyz/api/album/' + albums[0])
+
+    .then(function(body) {
 
       //Kanye Data
       data = JSON.parse(body);
@@ -36,25 +36,69 @@ router.get('/yoda', function(req, res, next) {
       //Pick random line
       var line = songLyrics[pickRandom(songLyrics.length)];
 
-      // Options
-      var options = {
-      url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(line),
-      headers: {
-        'Content-Type': 'text/plain',
-        'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
+      return line
+    })
+
+    .then(function(line) {
+
+        var urlInput = line;
+
+        function queryFormat(string) {
+          newString = "sentence=" + string.split(' ').join('+');
+          return newString;
         }
-      };
-    });
 
-    function callback(error, response, body) {
-      console.log(body);
-    if (!error && response.statusCode == 200) {
-      res.json(body);
-      }
-    }
+        var options = {
+        url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(urlInput),
+        headers: {
+          'Content-Type': 'text/plain',
+          'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
+          }
+        };
 
-  request(options, callback);
+        request(options)
 
-});
+        .then(function(data) {
+
+          console.log(data);
+
+          tweet = data;
+
+          var T = new Twit({
+            consumer_key: 'fuLw9OfsAAxMkOAO0a79DiZWD',
+            consumer_secret: 'iCueKLlf9fMzJP1SwGGGot2zSsmS8h8g71CkUPxsxbvL5IHqpl',
+            access_token: '733684972658266112-njtufTzMk7SNilrsxSjYnVHzFkjL4s3',
+            access_token_secret: 'JKjvGZLfcQ107JrIkA12ieupmJrMr11j9OL9cdAuo3Ctz'
+          })
+
+          T.post('statuses/update', { status: tweet }, function(err, data, response){
+            console.log('IN T POST', tweet);
+            if (err){
+              return console.log(err);
+            }
+            // console.log(data);
+          })
+        })
+      })
+      // console.log(line);
+    })
+    //   // Options
+    //   var options = {
+    //   url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(line),
+    //   headers: {
+    //     'Content-Type': 'text/plain',
+    //     'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
+    //     }
+    //   };
+    // });
+    //
+    // function callback(error, response, body) {
+    //   console.log(body);
+    // if (!error && response.statusCode == 200) {
+    //   res.json(body);
+    //   }
+    // }
+
+  // request(options, callback);
 
 module.exports = router;
