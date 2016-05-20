@@ -14,7 +14,6 @@ router.get('/yoda', function(req, res, next) {
   );
 });
 
-
 // router.get("https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.")
 // .header("X-Mashape-Key", "14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62")
 // .header("Accept", "text/plain")
