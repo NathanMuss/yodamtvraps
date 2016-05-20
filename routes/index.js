@@ -12,11 +12,26 @@ router.get('/', function(req, res, next) {
 
 router.get('/yoda', function(req, res, next) {
 
+  var albums = ['the_college_dropout', 'late_registration', 'graduation', '808s_&amp;_heartbreak', 'my_beautiful_dark_twisted_fantasy', 'watch_the_throne', 'yeezus', 'the_life_of_pablo'];
+  var urlInput;
+
+  function pickRandom(length) {
+    return Math.floor(Math.random() * length);
+  }
+
+    request('http://www.kanyerest.xyz/api/album/' + albums[0], function(err, res, body){
+      data = JSON.parse(body);
+      var songLyrics = data.result[pickRandom(data.result.length)].lyrics.split('\n');
+      var line = songLyrics[pickRandom(songLyrics.length)];
+      console.log(line);
+      urlInput = line;
+    });
+
   // will be assigned to rap lyric string
-  var urlInput = "Hello There"
 
   function queryFormat(string) {
-    newString = "sentence=" + string.split(' ').join('+');
+    var newString = "sentence=" + string.split(' ').join('+');
+    console.log(newString);
     return newString;
   }
 
