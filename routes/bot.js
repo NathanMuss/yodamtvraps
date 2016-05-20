@@ -29,6 +29,7 @@ router.get('/yoda', function(req, res, next) {
     }
   };
 
+
   function callback(error, response, body) {
     console.log("in callback", typeof foo);
 
