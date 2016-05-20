@@ -1,24 +1,20 @@
 var express = require('express');
 var router = express.Router();
-
+// var http = require('http');
+var request = require('request');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 router.get('/yoda', function(req, res, next) {
-  res.json(
-    {
-      yoda: "lyrics"
-    }
-  );
-});
 
-// router.get("https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.")
-// .header("X-Mashape-Key", "14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62")
-// .header("Accept", "text/plain")
-// .then(function (result) {
-//   console.log(result.body);
-// });
+    request('http://jsonplaceholder.typicode.com/posts/1', function(err, response, body){
+
+      console.log('response ', body);
+
+    });
+
+});
 
 module.exports = router;
