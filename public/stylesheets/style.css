@@ -4,8 +4,13 @@
 }
 
 body {
+  background-color: rgb(26, 26, 26);
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.col-content {
+  color: white;
 }
 
 a {
