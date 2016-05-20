@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 // var http = require('http');
 var request = require('request');
-/* GET home page. */
+
+
+
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -26,6 +29,7 @@ router.get('/yoda', function(req, res, next) {
   };
 
   function callback(error, response, body) {
+    
     console.log(body);
   if (!error && response.statusCode == 200) {
     res.json(body);
