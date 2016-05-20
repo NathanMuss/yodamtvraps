@@ -10,13 +10,13 @@ var T = new Twit({
 });
 
 router.get('/', function(req, res, next){
-  console.log('I exist');
-  T.post('statuses/update', { status: "raps I tweet"}, function(err, data, response){
-    if (err){
-      return console.log(err);
-    }
-    console.log(data);
-  })
+  // T.post('statuses/update', { status: "raps I tweet" }, function(err, data, response){
+  //   if (err){
+  //     return console.log(err);
+  //   }
+  //   console.log(data);
+  // })
+  console.log();
 })
 
 module.exports = router;
