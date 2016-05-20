@@ -76,29 +76,11 @@ router.get('/yoda', function(req, res, next) {
             if (err){
               return console.log(err);
             }
-            // console.log(data);
           })
+          console.log(data);
+          res.json(tweet)
         })
       })
-      // console.log(line);
     })
-    //   // Options
-    //   var options = {
-    //   url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(line),
-    //   headers: {
-    //     'Content-Type': 'text/plain',
-    //     'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
-    //     }
-    //   };
-    // });
-    //
-    // function callback(error, response, body) {
-    //   console.log(body);
-    // if (!error && response.statusCode == 200) {
-    //   res.json(body);
-    //   }
-    // }
-
-  // request(options, callback);
 
 module.exports = router;
