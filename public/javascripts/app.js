@@ -1,8 +1,11 @@
 $(document).ready(function() {
 
-    $.get( "/yoda", function( data ) {
-    $( ".result" ).html( data );
-    console.log(data);
+    $('#tweetRap').on('click', function() {
+      $.get( "/yoda", function( data ) {
+      $( ".result" ).html( data );
+      
+      console.log(data);
+    })
   });
 
 });
