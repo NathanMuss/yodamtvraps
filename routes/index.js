@@ -9,8 +9,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/yoda', function(req, res, next) {
 
+  // will be assigned to rap lyric string
+  var urlInput = "Hello There"
+
+  function queryFormat(string) {
+    newString = "sentence=" + string.split(' ').join('+');
+    return newString;
+  }
+
   var options = {
-  url: 'https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.',
+  url: 'https://yoda.p.mashape.com/yoda?' + queryFormat(urlInput),
   headers: {
     'Content-Type': 'text/plain',
     'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
