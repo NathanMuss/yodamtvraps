@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Twit = require('twit');
+var request = require('request')
 
 var T = new Twit({
   consumer_key: 'fuLw9OfsAAxMkOAO0a79DiZWD',
@@ -17,6 +18,13 @@ router.get('/', function(req, res, next){
   //   console.log(data);
   // })
   console.log();
+})
+
+router.get('/kanye', function(req, res, next){
+  request('http://www.kanyerest.xyz/api/track/good_morning', function(err, res, body){
+    data = JSON.parse(body);
+    console.log(data.lyrics);
+  })
 })
 
 module.exports = router;
