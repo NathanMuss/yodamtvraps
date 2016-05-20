@@ -9,11 +9,22 @@ router.get('/', function(req, res, next) {
 
 router.get('/yoda', function(req, res, next) {
 
-    request('http://jsonplaceholder.typicode.com/posts/1', function(err, response, body){
+  var options = {
+  url: 'https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.',
+  headers: {
+    'Content-Type': 'text/plain',
+    'X-Mashape-Key': '14NxsjwsZMmshIVvFwDV9UKvwgcjp1ZcceSjsneDQPbZO7FD62'
+    }
+  };
 
-      console.log('response ', body);
+  function callback(error, response, body) {
+    console.log(body);
+  if (!error && response.statusCode == 200) {
+    res.json(body);
+    }
+  }
 
-    });
+  request(options, callback);
 
 });
 
